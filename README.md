@@ -1,8 +1,8 @@
 # burst-dockerfile
 Dockerfile for Burst Miner & Plotter (Linux)
 
-* Plotter: https://github.com/alter3d/omdcct
-* Miner: https://github.com/cuthulino/BurstMiner/
+* Plotter: omdcct (https://github.com/alter3d/omdcct)
+* Miner: BurstMiner (https://github.com/cuthulino/BurstMiner/)
 
 :moneybag: Donations welcomed at `BURST-8GDX-8DTV-MHNB-HQX3F` :bow:
 
@@ -15,4 +15,13 @@ Dockerfile for Burst Miner & Plotter (Linux)
 **NOTE:** See [omdcct usage](https://github.com/alter3d/omdcct) for more information on command line arguments.
 
 ### Mining via Docker
+    docker pull ewrogers/burst-miner:latest
+    docker run -d \
+      -v /home/burst:/mnt/burst \
+      --restart always \
+      --name burst-miner \
+      ewrogers/burst-miner
+      
+**NOTE:** This assumes your `mining.conf` is in whichever directory is mounted as `/mnt/burst` from the host.
 
+See [BurstMiner usage](https://github.com/cuthulino/BurstMiner/) for more information on configuration options.
