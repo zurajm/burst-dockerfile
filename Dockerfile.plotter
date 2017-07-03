@@ -1,0 +1,27 @@
+FROM debian:jessie-slim
+MAINTAINER Erik Rogers <erik.rogers@live.com>
+
+ENV BURST_PLOTTER_VERSION 0.1
+ENV BURST_PLOTTER_PACKAGE omdcct-v$BURST_PLOTTER_VERSION-linux-amd64
+ENV BURST_PLOTTER_ZIP ${BURST_PLOTTER_PACKAGE}.zip
+
+# Choose binary release for Burst Plotter (omdcct)
+ENV BURST_PLOTTER_RELEASE https://github.com/ewrogers/burst-dockerfile/releases/download/omdcct-v$BURST_PLOTTER_VERSION/$BURST_PLOTTER_ZIP
+ENV BURST_PLOTTER_DIR /opt/burst
+
+RUN apt-get update && apt-get install -y \
+  wget \
+  unzip
+
+# Download and install Burst Plotter (omdcct)
+RUN wget $BURST_PLOTTER_RELEASE \
+  && unzip $BURST_PLOTTER_ZIP -d $BURST_PLOTTER_DIR \
+  && rm $BURST_PLOTTER_ZIP
+
+WORKDIR $BURST_PLOTTER_DIR
+
+# Add execute permission
+RUN chmod +x plot plotavx2
+
+# User should supply args upon container run
+ENTRYPOINT ["plot"]
