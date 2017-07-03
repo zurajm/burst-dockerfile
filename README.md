@@ -22,6 +22,6 @@ Dockerfile for Burst Miner & Plotter (Linux)
       --name burst-miner \
       ewrogers/burst-miner
       
-**NOTE:** This assumes your `mining.conf` is in whichever directory is mounted as `/mnt/burst` from the host (`/home/burst` in this example).
+**NOTE:** This assumes your `mining.conf` is in the directory mounted as `/mnt/burst` from the host (i.e. `/home/burst`).
 
 See [BurstMiner usage](https://github.com/cuthulino/BurstMiner/) for more information on configuration options.
