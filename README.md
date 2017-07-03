@@ -1,2 +1,13 @@
 # burst-dockerfile
-Dockerfile for Burst Miner (Linux)
+Dockerfile for Burst Miner & Plotter (Linux)
+
+### Plotting via Docker
+    docker pull ewrogers/burst-plotter:latest
+    docker run -it \
+      -v /home/burst:/mnt/burst \
+      ewrogers/burst-plotter -k $WALLET_NUMERIC_ID -d /mnt/burst/plots -n 614400
+
+**NOTE:** See [omdcct usage](https://github.com/alter3d/omdcct) for more information on command line arguments.
+
+### Mining via Docker
+
