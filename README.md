@@ -1,8 +1,8 @@
 # burst-dockerfile
 Dockerfile for Burst Miner & Plotter (Linux)
 
-* **Plotter:** omdcct (https://github.com/alter3d/omdcct)
-* **Miner:** BurstMiner (https://github.com/cuthulino/BurstMiner/)
+* **Plotter:** omdcct v0.1 (https://github.com/alter3d/omdcct)
+* **Miner:** creepMiner v1.6.0 (https://github.com/Creepsky/creepMiner)
 
 :moneybag: Donations welcomed at `BURST-8GDX-8DTV-MHNB-HQX3F` :bow:
 
@@ -17,11 +17,11 @@ Dockerfile for Burst Miner & Plotter (Linux)
 ### Mining via Docker
     docker pull ewrogers/burst-miner:latest
     docker run -d \
-      -v /home/burst:/mnt/burst \
+      -v /home/burst:/mnt/creepMiner \
       --restart always \
       --name burst-miner \
       ewrogers/burst-miner
       
-**NOTE:** This assumes your `mining.conf` is in the directory mounted as `/mnt/burst` from the host (i.e. `/home/burst`).
+**NOTE:** This assumes your `mining.conf` is in the directory mounted as `/mnt/creepMiner` from the host (i.e. `/home/burst`).
 
-See [BurstMiner usage](https://github.com/cuthulino/BurstMiner/) for more information on configuration options.
+See [Setting up the Miner](https://github.com/Creepsky/creepMiner/wiki/Setting-up-the-miner) for more information on configuration options.
