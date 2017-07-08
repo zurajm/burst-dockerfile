@@ -52,7 +52,7 @@ RUN apt-get remove -y \
 WORKDIR $CREEP_MINER_DIR/bin
 
 # Add execute permission to binary (and remove default config)
-RUN chmod +x ./creepMiner.sh
+RUN chmod +x ./creepMiner
 
 # Expose local web port
 EXPOSE 8080
