@@ -22,6 +22,6 @@ Dockerfile for Burst Miner & Plotter (Linux)
       --name burst-miner \
       ewrogers/burst-miner
       
-**NOTE:** This assumes your `mining.conf` is in the directory mounted as `/mnt/creepMiner` from the host (i.e. `/home/burst`).
+**NOTE:** This assumes your `mining.conf` is in the directory mounted as `/mnt/creepMiner` from the host (i.e. `/home/burst`). You can mount one or more additional volumes for plots, **example:** `-v /media/usb/drive1:/mnt/drive1`.
 
 See [Setting up the Miner](https://github.com/Creepsky/creepMiner/wiki/Setting-up-the-miner) for more information on configuration options.
