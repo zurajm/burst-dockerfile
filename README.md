@@ -17,6 +17,7 @@ Dockerfile for Burst Miner & Plotter (Linux)
 ### Mining via Docker
     docker pull ewrogers/burst-miner:latest
     docker run -d \
+      -p 8080:8080 \
       -v /home/burst:/mnt/creepMiner \
       --restart always \
       --name burst-miner \
