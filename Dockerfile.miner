@@ -31,7 +31,8 @@ RUN wget $CREEP_MINER_RELEASE \
 # Copy binaries and cleanup
 RUN mkdir -p $CREEP_MINER_DIR \
   && cd $CREEP_MINER_PACKAGE \
-  && ls -la \
+  && rm ./bin/*.dll \
+  && rm ./bin/mining.conf \
   && cp -r ./bin $CREEP_MINER_DIR \
   && cd .. \
   && rm -rf $CREEP_MINER_PACKAGE \
@@ -48,13 +49,13 @@ RUN apt-get remove -y \
   && apt-get autoclean \
   && apt-get clean
 
-WORKDIR $CREEP_MINER_DIR
+WORKDIR $CREEP_MINER_DIR/bin
 
-# Add execute permission to binary
-RUN chmod +x ./bin/creepMiner
+# Add execute permission to binary (and remove default config)
+RUN chmod +x ./creepMiner.sh
 
 # Expose local web port
 EXPOSE 8080
 
-ENV CREEP_MINER_DATADIR /mnt/creepMiner
-CMD ./bin/creepMiner ${CREEP_MINER_DATADIR}/mining.conf
+ENV CREEP_MINER_DATADIR /mnt/miner
+CMD ./creepMiner ${CREEP_MINER_DATADIR}/mining.conf
