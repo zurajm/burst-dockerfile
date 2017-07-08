@@ -11,7 +11,8 @@ ENV BURST_PLOTTER_DIR /opt/burst
 
 RUN apt-get update && apt-get install -y \
   wget \
-  unzip
+  unzip \
+  && rm -rf /var/lib/apt/lists/*
 
 # Download and install Burst Plotter (omdcct)
 RUN wget $BURST_PLOTTER_RELEASE \

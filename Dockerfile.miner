@@ -1,29 +1,60 @@
 FROM debian:jessie-slim
 MAINTAINER Erik Rogers <erik.rogers@live.com>
 
-ENV BURST_MINER_VERSION 0.1
-ENV BURST_MINER_PACKAGE RC-v$BURST_MINER_VERSION-bin-lin64
-ENV BURST_MINER_ZIP ${BURST_MINER_PACKAGE}.zip
+ENV CREEP_MINER_VERSION 2.6.0
+ENV CREEP_MINER_PACKAGE creepMiner-${CREEP_MINER_VERSION}
+ENV CREEP_MINER_ARCHIVE ${CREEP_MINER_VERSION}.tar.gz
 
-# Choose binary release for BurstMiner
-ENV BURST_MINER_RELEASE https://github.com/cuthulino/BurstMiner/releases/download/RC-v$BURST_MINER_VERSION/$BURST_MINER_ZIP
-ENV BURST_MINER_DIR /opt/burst
+# Choose source release for CreepMiner
+ENV CREEP_MINER_RELEASE https://github.com/Creepsky/creepMiner/archive/$CREEP_MINER_ARCHIVE
+ENV CREEP_MINER_DIR /opt/creepMiner
 
-RUN apt-get update && apt-get install -y \
+# Install necessary dependencies for Poco
+RUN apt-get update && apt-get upgrade -y && apt-get install -y \
+  build-essential \
+  libssl-dev \
+  openssl \
+  git \
+  sudo \
   wget \
-  unzip
+  && rm -rf /var/lib/apt/lists/*
 
-# Download and install BurstMiner
-RUN wget $BURST_MINER_RELEASE \
-  && unzip $BURST_MINER_ZIP -d $BURST_MINER_DIR \
-  && rm $BURST_MINER_ZIP
+# Download and build from source
+WORKDIR /tmp
+RUN wget $CREEP_MINER_RELEASE \
+  && mkdir -p $CREEP_MINER_PACKAGE \
+  && tar -xvf $CREEP_MINER_ARCHIVE \
+  && cd $CREEP_MINER_PACKAGE \
+  && sudo ./install-poco.sh \
+  && make
 
-WORKDIR $BURST_MINER_DIR
+# Copy binaries and cleanup
+RUN mkdir -p $CREEP_MINER_DIR \
+  && cd $CREEP_MINER_PACKAGE \
+  && ls -la \
+  && cp -r ./bin $CREEP_MINER_DIR \
+  && cd .. \
+  && rm -rf $CREEP_MINER_PACKAGE \
+  && rm $CREEP_MINER_ARCHIVE
 
-# Add execute permission and delete mining config
-# NOTE: mining config will be supplied externally
-RUN chmod +x burstminer \
-  && rm mining.conf
+# Uninstall toolchain after installing Poco and building from source
+ENV SUDO_FORCE_REMOVE yes
+RUN apt-get remove -y \
+  build-essential \
+  git \
+  sudo \
+  wget \
+  && apt-get autoremove -y \
+  && apt-get autoclean \
+  && apt-get clean
 
-ENV BURST_MINER_DATADIR /mnt/burst
-CMD ./burstminer $BURST_MINER_DATADIR/mining.conf
+WORKDIR $CREEP_MINER_DIR
+
+# Add execute permission to binary
+RUN chmod +x ./bin/creepMiner
+
+# Expose local web port
+EXPOSE 8080
+
+ENV CREEP_MINER_DATADIR /mnt/creepMiner
+CMD ./bin/creepMiner ${CREEP_MINER_DATADIR}/mining.conf
