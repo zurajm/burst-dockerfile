@@ -8,6 +8,8 @@ ENV CREEP_MINER_ARCHIVE ${CREEP_MINER_VERSION}.tar.gz
 # Choose source release for CreepMiner
 ENV CREEP_MINER_RELEASE https://github.com/Creepsky/creepMiner/archive/$CREEP_MINER_ARCHIVE
 ENV CREEP_MINER_DIR /opt/creepMiner
+ENV CREEP_MINER_INSTRUCTION_SET SSE4
+ENV CREEP_MINER_BIN creepMiner-sse4
 
 # Install necessary dependencies for Poco
 RUN apt-get update && apt-get upgrade -y && apt-get install -y \
@@ -27,6 +29,7 @@ RUN wget $CREEP_MINER_RELEASE \
   && tar -xvf $CREEP_MINER_ARCHIVE \
   && cd $CREEP_MINER_PACKAGE \
   && sudo ./install-poco.sh \
+  && cmake -DCMAKE_BUILD_TYPE=RELEASE -DCPU_INSTRUCTION_SET=${CREEP_MINER_INSTRUCTION_SET} \
   && make
 
 # Copy binaries and cleanup
@@ -59,4 +62,4 @@ RUN chmod +x ./creepMiner
 EXPOSE 8080
 
 ENV CREEP_MINER_DATADIR /mnt/miner
-CMD ./creepMiner ${CREEP_MINER_DATADIR}/mining.conf
+CMD ./&{CREEP_MINER_BIN} ${CREEP_MINER_DATADIR}/mining.conf
