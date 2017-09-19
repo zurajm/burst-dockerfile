@@ -12,6 +12,7 @@ ENV CREEP_MINER_DIR /opt/creepMiner
 # Install necessary dependencies for Poco
 RUN apt-get update && apt-get upgrade -y && apt-get install -y \
   build-essential \
+  cmake \
   libssl-dev \
   openssl \
   git \
