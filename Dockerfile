@@ -1,5 +1,5 @@
 FROM debian:jessie-slim
-MAINTAINER Erik Rogers <erik.rogers@live.com>
+MAINTAINER Miha Zuraj <miha@zuraj.com>
 
 ENV CREEP_MINER_VERSION 2.6.3
 ENV CREEP_MINER_PACKAGE creepMiner-${CREEP_MINER_VERSION}
