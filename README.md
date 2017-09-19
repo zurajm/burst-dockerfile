@@ -10,7 +10,7 @@ Dockerfile for Burst Miner (Linux)
       -p 8080:8080 \
       -v /home/miner:/mnt/miner \
       --restart always \
-      --name creep-miner \
+      --name burst-miner \
       ewrogers/creep-miner:latest
       
 **NOTE:** This assumes your `mining.conf` is in the directory mounted as `/mnt/miner` from the host (i.e. `/home/miner`).
