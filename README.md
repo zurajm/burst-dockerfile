@@ -1,17 +1,9 @@
-# burst-dockerfile
-Dockerfile for Burst Miner & Plotter (Linux)
+# burst-miner
+Dockerfile for Burst Miner (Linux)
 
-* **Plotter:** omdcct v0.1 (https://github.com/alter3d/omdcct)
-* **Miner:** creepMiner v1.6.3 (https://github.com/Creepsky/creepMiner)
+**Miner:** creepMiner v1.6.3 (https://github.com/Creepsky/creepMiner)
 
-:moneybag: Donations welcomed at `BURST-8GDX-8DTV-MHNB-HQX3F` :bow:
-
-### Plotting via Docker
-    docker run -it \
-      -v /home/burst:/mnt/burst \
-      ewrogers/burst-plotter:latest -k $WALLET_NUMERIC_ID -d /mnt/burst/plots -n 614400
-
-**NOTE:** See [omdcct usage](https://github.com/alter3d/omdcct) for more information on command line arguments.
+:moneybag: Donations welcomed at `BURST-8AH9-WZXA-7SFE-H4BNG` :bow:
 
 ### Mining via Docker
     docker run -d \
@@ -25,4 +17,5 @@ Dockerfile for Burst Miner & Plotter (Linux)
 
 You can mount one or more additional volumes for plots, **example:** `-v /media/usb/disk1:/mnt/disk1`
 
-See [Setting up the Miner](https://github.com/Creepsky/creepMiner/wiki/Setting-up-the-miner) for more information on configuration options.
+See [Setting up the Miner](https://github.com/Creepsky/creepMiner/wiki/Setting-up-the-miner or https://github.com/Creepsky/creepMiner/wiki/Quickstart) for more information on configuration options.
+All props go to ewrogers
