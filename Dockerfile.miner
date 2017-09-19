@@ -35,7 +35,6 @@ RUN wget $CREEP_MINER_RELEASE \
 # Copy binaries and cleanup
 RUN mkdir -p $CREEP_MINER_DIR \
   && cd $CREEP_MINER_PACKAGE \
-  && rm ./bin/*.dll \
   && rm ./bin/mining.conf \
   && cp -r ./bin $CREEP_MINER_DIR \
   && cd .. \
